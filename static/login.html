@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Li Ono Niha AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            background: linear-gradient(rgba(13, 17, 23, 0.4), rgba(13, 17, 23, 0.4)), url('/static/assets/nias.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100dvh; 
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .auth-card { 
+            background-color: rgba(22, 27, 34, 0.85); 
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(48, 54, 61, 0.8); 
+            border-radius: 16px; 
+            padding: 35px 30px; 
+            width: 100%; 
+            max-width: 400px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6); 
+            text-align: center; 
+        }
+        .auth-header h2 { color: #D4AF37; font-size: 1.8rem; margin-bottom: 8px; margin-top: 0; }
+        .auth-header p { color: #8B949E; font-size: 0.9rem; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; font-size: 0.85rem; color: #E6EDF3; margin-bottom: 6px; }
+        .form-group input { width: 100%; padding: 12px 15px; background-color: rgba(13, 17, 23, 0.8); border: 1px solid #30363D; border-radius: 8px; color: white; font-size: 0.95rem; outline: none; box-sizing: border-box; }
+        .form-group input:focus { border-color: #D4AF37; }
+        
+        .forgot-link { display: block; text-align: right; font-size: 0.8rem; color: #D4AF37; text-decoration: none; margin-top: 5px; cursor: pointer; }
+        .forgot-link:hover { text-decoration: underline; }
+
+        .btn-submit { width: 100%; padding: 12px; background-color: #D4AF37; color: #0D1117; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .btn-submit:hover { background-color: #F1C40F; }
+
+        .divider { display: flex; align-items: center; text-align: center; color: #8B949E; font-size: 0.8rem; margin: 20px 0; }
+        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #30363D; }
+        .divider span { padding: 0 10px; }
+
+        .btn-google { width: 100%; padding: 11px; background-color: rgba(255, 255, 255, 0.08); color: white; border: 1px solid #30363D; border-radius: 8px; font-weight: 500; font-size: 0.95rem; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-google:hover { background-color: rgba(255, 255, 255, 0.15); border-color: #8B949E; }
+
+        .auth-footer { margin-top: 20px; font-size: 0.85rem; color: #8B949E; }
+        .auth-footer a { color: #D4AF37; text-decoration: none; font-weight: 600; cursor: pointer; }
+        .auth-footer a:hover { text-decoration: underline; }
+        .error-msg { background-color: rgba(192, 57, 43, 0.2); border: 1px solid #C0392B; color: #E74C3C; padding: 10px; border-radius: 6px; font-size: 0.85rem; margin-bottom: 15px; display: none; }
+        .success-msg { background-color: rgba(46, 204, 113, 0.2); border: 1px solid #2ECC71; color: #2ECC71; padding: 10px; border-radius: 6px; font-size: 0.85rem; margin-bottom: 15px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>LI ONO NIHA AI</h2>
+            <p id="auth-subtitle">Masuk untuk melanjutkan obrolan</p>
+        </div>
+
+        <div id="error-message" class="error-msg"></div>
+        <div id="success-message" class="success-msg"></div>
+
+        <form id="auth-form">
+            <div class="form-group">
+                <label for="email">Alamat Email</label>
+                <input type="email" id="email" placeholder="nama@email.com" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Kata Sandi</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+                <a id="forgot-btn" class="forgot-link">Lupa kata sandi?</a>
+            </div>
+            <button type="submit" class="btn-submit" id="btn-text">Masuk</button>
+        </form>
+
+        <div class="divider"><span>Atau masuk dengan</span></div>
+
+        <button type="button" class="btn-google" id="google-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.2 9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.9z"/><path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3s.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 12.3 0 15s.7 5.3 1.9 7.7l3.7-2.9c-.2-.7-.4-1.5-.4-2.3z"/><path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.2-6.4-5.2L1.9 16c1.8 3.7 5.6 7 10.1 7z"/></svg>
+            Google
+        </button>
+
+        <div class="auth-footer">
+            <span id="toggle-text">Belum punya akun?</span>
+            <a id="toggle-btn">Daftar Sekarang</a>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { 
+            getAuth, 
+            signInWithEmailAndPassword, 
+            createUserWithEmailAndPassword, 
+            signInWithPopup, 
+            GoogleAuthProvider,
+            sendPasswordResetEmail,
+            onAuthStateChanged 
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCMlFibIcJZcdBLMWq09DG9oMV5weCOKUo",
+            authDomain: "li-ono-niha.firebaseapp.com",
+            projectId: "li-ono-niha",
+            storageBucket: "li-ono-niha.firebasestorage.app",
+            messagingSenderId: "83015964589",
+            appId: "1:83015964589:web:24418eec486d5652f4b324",
+            measurementId: "G-CP97Q7H8NY"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+        let isLoginMode = true;
+
+        const authForm = document.getElementById('auth-form');
+        const errorMsg = document.getElementById('error-message');
+        const successMsg = document.getElementById('success-message');
+        const btnText = document.getElementById('btn-text');
+        const toggleBtn = document.getElementById('toggle-btn');
+        const googleBtn = document.getElementById('google-btn');
+        const forgotBtn = document.getElementById('forgot-btn');
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) window.location.href = '/';
+        });
+
+        // Toggle Login / Register
+        toggleBtn.addEventListener('click', () => {
+            isLoginMode = !isLoginMode;
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+            document.getElementById('auth-subtitle').textContent = isLoginMode ? "Masuk untuk melanjutkan obrolan" : "Buat akun baru untuk mulai menggunakan AI";
+            btnText.textContent = isLoginMode ? "Masuk" : "Daftar";
+            document.getElementById('toggle-text').textContent = isLoginMode ? "Belum punya akun?" : "Sudah punya akun?";
+            toggleBtn.textContent = isLoginMode ? "Daftar Sekarang" : "Masuk di sini";
+            forgotBtn.style.display = isLoginMode ? "inline" : "none";
+        });
+
+        // Fitur Lupa Password (Reset Email)
+        forgotBtn.addEventListener('click', async () => {
+            const email = document.getElementById('email').value;
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+
+            if (!email) {
+                errorMsg.style.display = 'block';
+                errorMsg.textContent = "Ketik alamat email kamu terlebih dahulu di kolom di atas.";
+                return;
+            }
+
+            try {
+                await sendPasswordResetEmail(auth, email);
+                successMsg.style.display = 'block';
+                successMsg.textContent = "Email pemulihan kata sandi telah dikirim! Cek kotak masuk atau folder Spam kamu.";
+            } catch (error) {
+                errorMsg.style.display = 'block';
+                errorMsg.textContent = "Gagal mengirim email: " + error.message;
+            }
+        });
+
+        // Login dengan Google
+        googleBtn.addEventListener('click', async () => {
+            try {
+                await signInWithPopup(auth, provider);
+            } catch (error) {
+                errorMsg.style.display = 'block';
+                errorMsg.textContent = "Gagal login dengan Google: " + error.message;
+            }
+        });
+
+        // Submit Email/Password
+        authForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+            btnText.textContent = "Memproses...";
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                if (isLoginMode) {
+                    await signInWithEmailAndPassword(auth, email, password);
+                } else {
+                    await createUserWithEmailAndPassword(auth, email, password);
+                }
+            } catch (error) {
+                btnText.textContent = isLoginMode ? "Masuk" : "Daftar";
+                errorMsg.style.display = 'block';
+                if (error.code === 'auth/invalid-credential') errorMsg.textContent = "Email atau sandi salah.";
+                else if (error.code === 'auth/email-already-in-use') errorMsg.textContent = "Email sudah terdaftar. Silakan login.";
+                else if (error.code === 'auth/weak-password') errorMsg.textContent = "Sandi minimal 6 karakter.";
+                else errorMsg.textContent = "Terjadi kesalahan: " + error.message;
+            }
+        });
+    </script>
+</body>
+</html>
